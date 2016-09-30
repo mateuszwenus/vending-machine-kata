@@ -11,7 +11,7 @@ public class ShelveTest {
 		// when
 		new Shelve(5, new Product("Mineral water", new Money(100)));
 	}
-	
+
 	@Test
 	public void Shelve_should_throw_exception_when_number_of_products_is_negative() {
 		try {
@@ -19,6 +19,17 @@ public class ShelveTest {
 			new Shelve(-1, new Product("Mineral water", new Money(100)));
 			fail();
 		} catch (IllegalArgumentException expected) {
+			// then
+		}
+	}
+
+	@Test
+	public void Shelve_should_throw_exception_when_product_is_null() {
+		try {
+			// when
+			new Shelve(5, null);
+			fail();
+		} catch (NullPointerException expected) {
 			// then
 		}
 	}
