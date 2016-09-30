@@ -6,5 +6,8 @@ public class Shelve {
 		if (numberOfProducts < 0) {
 			throw new IllegalArgumentException("number of products must not be < 0");
 		}
+		if (product == null) {
+			throw new NullPointerException("product must not be null");
+		}
 	}
 }
