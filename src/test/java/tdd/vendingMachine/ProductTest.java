@@ -22,4 +22,15 @@ public class ProductTest {
 			// then
 		}
 	}
+	
+	@Test
+	public void Product_should_throw_exception_when_price_is_null() {
+		try {
+			// when
+			new Product("Mineral water", null);
+			fail();
+		} catch (NullPointerException expected) {
+			// then
+		}
+	}
 }
