@@ -8,6 +8,9 @@ public class VendingMachine {
 		if (shelves == null) {
 			throw new NullPointerException("shelves must not be null");
 		}
+		if (shelves.isEmpty()) {
+			throw new IllegalArgumentException("shelves list must not be empty");
+		}
 	}
 
 }
