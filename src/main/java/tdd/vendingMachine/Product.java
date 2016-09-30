@@ -6,5 +6,8 @@ public class Product {
 		if (name == null) {
 			throw new NullPointerException("name must not ne null");
 		}
+		if (price == null) {
+			throw new NullPointerException("price must not ne null");
+		}
 	}
 }
