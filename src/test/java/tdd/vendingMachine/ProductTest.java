@@ -33,4 +33,15 @@ public class ProductTest {
 			// then
 		}
 	}
+	
+	@Test
+	public void Product_should_throw_exception_when_name_is_blank() {
+		try {
+			// when
+			new Product(" 	", new Money(100));
+			fail();
+		} catch (IllegalArgumentException expected) {
+			// then
+		}
+	}
 }
