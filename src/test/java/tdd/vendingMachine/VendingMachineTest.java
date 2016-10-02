@@ -1,5 +1,7 @@
 package tdd.vendingMachine;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
 import java.util.Arrays;
@@ -35,5 +37,15 @@ public class VendingMachineTest {
     	} catch (IllegalArgumentException expected) {
     		// then
     	}
+	}
+    
+    @Test
+	public void should_display_product_price_when_valid_shelve_number_is_selected() {
+		// given
+    	VendingMachine vendingMachine = new VendingMachine(Arrays.asList(new Shelve(1, new Product("Mineral water", new Money(100)))));
+		// when
+    	vendingMachine.selectShelve(0);
+		// then
+    	assertThat(vendingMachine.getDisplay(), is("1.00"));
 	}
 }
