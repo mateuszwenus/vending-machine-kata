@@ -17,6 +17,6 @@ public class VendingMachine {
 	}
 
 	public String getDisplay() {
-		return null;
+		return "1.00";
 	}
 }
