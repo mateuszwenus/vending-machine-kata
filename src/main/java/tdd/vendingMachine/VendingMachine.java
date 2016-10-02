@@ -13,4 +13,10 @@ public class VendingMachine {
 		}
 	}
 
+	public void selectShelve(int shelveNumber) {
+	}
+
+	public String getDisplay() {
+		return null;
+	}
 }
