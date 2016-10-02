@@ -19,7 +19,7 @@ public class VendingMachine {
 	}
 
 	public void selectShelve(int shelveNumber) {
-		if (shelveNumber >= shelves.size()) {
+		if (shelveNumber < 0 || shelveNumber >= shelves.size()) {
 			display = INVALID_SHELVE_NUMBER_MSG;
 		} else {
 			display = shelves.get(shelveNumber).getProductPrice().toString();
