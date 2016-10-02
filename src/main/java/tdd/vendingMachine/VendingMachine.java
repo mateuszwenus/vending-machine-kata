@@ -4,6 +4,7 @@ import java.util.List;
 
 public class VendingMachine {
 
+	public static final String INVALID_SHELVE_NUMBER_MSG = "invalid shelve number";
 	private final List<Shelve> shelves;
 	private String display;
 	
@@ -19,7 +20,7 @@ public class VendingMachine {
 
 	public void selectShelve(int shelveNumber) {
 		if (shelveNumber >= shelves.size()) {
-			display = "invalid shelve number";
+			display = INVALID_SHELVE_NUMBER_MSG;
 		} else {
 			display = shelves.get(shelveNumber).getProductPrice().toString();
 		}

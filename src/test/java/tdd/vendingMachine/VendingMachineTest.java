@@ -56,6 +56,6 @@ public class VendingMachineTest {
 		// when
 		vendingMachine.selectShelve(10);
 		// then
-		assertThat(vendingMachine.getDisplay(), is("invalid shelve number"));
+		assertThat(vendingMachine.getDisplay(), is(VendingMachine.INVALID_SHELVE_NUMBER_MSG));
 	}
 }
