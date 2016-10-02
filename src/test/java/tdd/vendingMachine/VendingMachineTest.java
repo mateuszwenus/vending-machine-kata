@@ -58,4 +58,14 @@ public class VendingMachineTest {
 		// then
 		assertThat(vendingMachine.getDisplay(), is(VendingMachine.INVALID_SHELVE_NUMBER_MSG));
 	}
+	
+	@Test
+	public void should_display_warning_when_negative_shelve_number_is_selected() {
+		// given
+		VendingMachine vendingMachine = new VendingMachine(Arrays.asList(new Shelve(1, new Product("Mineral water", new Money(100)))));
+		// when
+		vendingMachine.selectShelve(-1);
+		// then
+		assertThat(vendingMachine.getDisplay(), is(VendingMachine.INVALID_SHELVE_NUMBER_MSG));
+	}
 }
