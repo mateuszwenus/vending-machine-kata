@@ -70,7 +70,7 @@ public class VendingMachineTest {
 	}
 	
 	@Test
-	public void should_display_remaining_amount_after_inserting_a_coin() {
+	public void should_display_remaining_amount_after_selecting_a_shelve_and_inserting_a_coin() {
 		// given
 		VendingMachine vendingMachine = new VendingMachine(Arrays.asList(new Shelve(1, new Product("Mineral water", new Money(200)))));
 		vendingMachine.selectShelve(0);
