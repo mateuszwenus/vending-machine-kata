@@ -90,4 +90,16 @@ public class VendingMachineTest {
 		// then
 		assertThat(vendingMachine.getReturnedCoins(), hasItems(Coin.ONE_ZL));
 	}
+	
+	@Test
+	public void should_dispense_product_after_inserting_exact_amount() {
+		// given
+		VendingMachine vendingMachine = new VendingMachine(Arrays.asList(new Shelve(1, new Product("Mineral water", new Money(200)))));
+		vendingMachine.selectShelve(0);
+		vendingMachine.insertCoin(Coin.ONE_ZL);
+		// when
+		vendingMachine.insertCoin(Coin.ONE_ZL);
+		// then
+		assertThat(vendingMachine.takeDispensedProduct(), is(new Product("Mineral water", new Money(200))));
+	}
 }
