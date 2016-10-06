@@ -142,7 +142,7 @@ public class VendingMachineTest {
 		// when
 		vendingMachine.pressCancel();
 		// then
-		assertThat(vendingMachine.getReturnedCoins(), not(hasItems(Coin.TEN_GR, Coin.TWENTY_GR)));
+		assertThat(vendingMachine.getReturnedCoins(), not(hasItem(any(Coin.class))));
 	}
 	
 	@Test
@@ -155,5 +155,5 @@ public class VendingMachineTest {
 		vendingMachine.pressCancel();
 		// then
 		assertThat(vendingMachine.getReturnedCoins(), not(hasItem(any(Coin.class))));
-	}
+	}	
 }
