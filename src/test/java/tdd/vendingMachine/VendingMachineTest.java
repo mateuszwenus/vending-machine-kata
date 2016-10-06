@@ -102,4 +102,15 @@ public class VendingMachineTest {
 		// then
 		assertThat(vendingMachine.takeDispensedProduct(), is(new Product("Mineral water", new Money(200))));
 	}
+	
+	@Test
+	public void should_decrease_number_of_products_on_shelve_after_dispensing_a_product() {
+		// given
+		VendingMachine vendingMachine = new VendingMachine(Arrays.asList(new Shelve(1, new Product("Mineral water", new Money(200)))));
+		vendingMachine.selectShelve(0);
+		// when
+		vendingMachine.insertCoin(Coin.TWO_ZL);
+		// then
+		assertThat(vendingMachine.getNumberOfProductsOnShelve(0), is(0));
+	}
 }
