@@ -1,5 +1,7 @@
 package tdd.vendingMachine;
 
+import static org.hamcrest.CoreMatchers.any;
+import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
@@ -141,5 +143,17 @@ public class VendingMachineTest {
 		vendingMachine.pressCancel();
 		// then
 		assertThat(vendingMachine.getReturnedCoins(), not(hasItems(Coin.TEN_GR, Coin.TWENTY_GR)));
+	}
+	
+	@Test
+	public void should_not_be_possible_to_return_inserted_money_after_dispensing_a_product() {
+		// given
+		VendingMachine vendingMachine = new VendingMachine(Arrays.asList(new Shelve(1, new Product("Mineral water", new Money(200)))));
+		vendingMachine.selectShelve(0);
+		vendingMachine.insertCoin(Coin.TWO_ZL);
+		// when
+		vendingMachine.pressCancel();
+		// then
+		assertThat(vendingMachine.getReturnedCoins(), not(hasItem(any(Coin.class))));
 	}
 }
