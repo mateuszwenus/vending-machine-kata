@@ -21,8 +21,12 @@ public class Shelve {
 	}
 
 	public Product takeProduct() {
-		numberOfProducts--;
-		return product;
+		if (numberOfProducts > 0) {
+			numberOfProducts--;
+			return product;
+		} else {
+			return null;
+		}
 	}
 
 	public int getNumberOfProducts() {
