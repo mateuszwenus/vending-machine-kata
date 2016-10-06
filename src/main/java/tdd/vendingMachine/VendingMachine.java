@@ -29,4 +29,7 @@ public class VendingMachine {
 	public String getDisplay() {
 		return display;
 	}
+
+	public void insertCoin(Coin coin) {
+	}
 }
