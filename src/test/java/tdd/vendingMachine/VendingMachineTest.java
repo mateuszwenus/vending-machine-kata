@@ -212,6 +212,6 @@ public class VendingMachineTest {
 		// when
 		vendingMachine.selectShelve(0);
 		// then
-		assertThat(vendingMachine.getDisplay(), is("empty shelve"));
+		assertThat(vendingMachine.getDisplay(), is(VendingMachine.EMPTY_SHELVE_MSG));
 	}
 }

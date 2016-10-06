@@ -5,6 +5,7 @@ import java.util.List;
 
 public class VendingMachine {
 
+	public static final String EMPTY_SHELVE_MSG = "empty shelve";
 	public static final String INVALID_SHELVE_NUMBER_MSG = "invalid shelve number";
 	private final List<Shelve> shelves;
 	private final List<Coin> returnedCoins = new ArrayList<>();
@@ -31,7 +32,7 @@ public class VendingMachine {
 		if (shelveNumber < 0 || shelveNumber >= shelves.size()) {
 			display = INVALID_SHELVE_NUMBER_MSG;
 		} else if (shelves.get(shelveNumber).isEmpty()) {
-			display = "empty shelve";
+			display = EMPTY_SHELVE_MSG;
 		} else {
 			selectedShelve = shelves.get(shelveNumber);
 			amountToPay = selectedShelve.getProductPrice();
