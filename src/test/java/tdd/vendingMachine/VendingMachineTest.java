@@ -190,4 +190,18 @@ public class VendingMachineTest {
 		// then
 		assertThat(vendingMachine.getDisplay(), is("2.00"));
 	}
+	
+	@Test
+	public void should_allow_to_select_another_shelve_after_pressing_cancel() {
+		// given
+		Shelve mineralWaterShelve = new Shelve(1, new Product("Mineral water", new Money(200)));
+		Shelve chocolateShelve = new Shelve(1, new Product("Chocolate", new Money(300)));
+		VendingMachine vendingMachine = new VendingMachine(Arrays.asList(mineralWaterShelve, chocolateShelve));
+		vendingMachine.selectShelve(0);
+		vendingMachine.pressCancel();
+		// when
+		vendingMachine.selectShelve(1);
+		// then
+		assertThat(vendingMachine.getDisplay(), is("3.00"));
+	}
 }
