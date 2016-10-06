@@ -68,4 +68,14 @@ public class VendingMachineTest {
 		// then
 		assertThat(vendingMachine.getDisplay(), is(VendingMachine.INVALID_SHELVE_NUMBER_MSG));
 	}
+	
+	@Test
+	public void should_display_remaining_amount_after_inserting_a_coin() {
+		// given
+		VendingMachine vendingMachine = new VendingMachine(Arrays.asList(new Shelve(1, new Product("Mineral water", new Money(200)))));
+		// when
+		vendingMachine.insertCoin(Coin.ONE_ZL);
+		// then
+		assertThat(vendingMachine.getDisplay(), is("1.00"));
+	}
 }
