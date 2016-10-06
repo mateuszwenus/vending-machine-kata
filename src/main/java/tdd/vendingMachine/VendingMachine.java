@@ -41,7 +41,7 @@ public class VendingMachine {
 		if (selectedShelve != null) {
 			amountToPay = amountToPay.minus(coin.toMoney());
 			if (amountToPay.equals(new Money(0))) {
-				dispensedProduct = selectedShelve.getProduct();
+				dispensedProduct = selectedShelve.takeProduct();
 			}
 			display = amountToPay.toString();
 		} else {
@@ -57,5 +57,9 @@ public class VendingMachine {
 		Product result = dispensedProduct;
 		dispensedProduct = null;
 		return result;
+	}
+
+	public int getNumberOfProductsOnShelve(int shelveNumber) {
+		return shelves.get(shelveNumber).getNumberOfProducts();
 	}
 }
