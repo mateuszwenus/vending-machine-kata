@@ -8,6 +8,7 @@ public class VendingMachine {
 	public static final String INVALID_SHELVE_NUMBER_MSG = "invalid shelve number";
 	private final List<Shelve> shelves;
 	private final List<Coin> returnedCoins = new ArrayList<>();
+	private final List<Coin> insertedCoins = new ArrayList<>();
 	private String display;
 	private Shelve selectedShelve;
 	private Money amountToPay;
@@ -39,6 +40,7 @@ public class VendingMachine {
 
 	public void insertCoin(Coin coin) {
 		if (selectedShelve != null) {
+			insertedCoins.add(coin);
 			amountToPay = amountToPay.minus(coin.toMoney());
 			if (amountToPay.equals(new Money(0))) {
 				dispensedProduct = selectedShelve.takeProduct();
@@ -61,5 +63,9 @@ public class VendingMachine {
 
 	public int getNumberOfProductsOnShelve(int shelveNumber) {
 		return shelves.get(shelveNumber).getNumberOfProducts();
+	}
+
+	public void pressCancel() {
+		returnedCoins.addAll(insertedCoins);
 	}
 }
