@@ -1,5 +1,6 @@
 package tdd.vendingMachine;
 
+import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
@@ -78,5 +79,15 @@ public class VendingMachineTest {
 		vendingMachine.insertCoin(Coin.ONE_ZL);
 		// then
 		assertThat(vendingMachine.getDisplay(), is("1.00"));
+	}
+	
+	@Test
+	public void should_return_inserted_coin_when_shelve_has_not_been_selected() {
+		// given
+		VendingMachine vendingMachine = new VendingMachine(Arrays.asList(new Shelve(1, new Product("Mineral water", new Money(200)))));
+		// when
+		vendingMachine.insertCoin(Coin.ONE_ZL);
+		// then
+		assertThat(vendingMachine.getReturnedCoins(), hasItems(Coin.ONE_ZL));
 	}
 }
