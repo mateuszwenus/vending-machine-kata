@@ -9,7 +9,7 @@ public class VendingMachine {
 	private final List<Shelve> shelves;
 	private final List<Coin> returnedCoins = new ArrayList<>();
 	private final List<Coin> insertedCoins = new ArrayList<>();
-	private String display;
+	private String display = "";
 	private Shelve selectedShelve;
 	private Money amountToPay;
 	private Product dispensedProduct;
