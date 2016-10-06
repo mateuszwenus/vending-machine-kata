@@ -32,4 +32,8 @@ public class Shelve {
 	public int getNumberOfProducts() {
 		return numberOfProducts;
 	}
+
+	public boolean isEmpty() {
+		return numberOfProducts <= 0;
+	}
 }

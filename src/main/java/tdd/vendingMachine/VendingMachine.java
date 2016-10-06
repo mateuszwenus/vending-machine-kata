@@ -30,6 +30,8 @@ public class VendingMachine {
 		}
 		if (shelveNumber < 0 || shelveNumber >= shelves.size()) {
 			display = INVALID_SHELVE_NUMBER_MSG;
+		} else if (shelves.get(shelveNumber).isEmpty()) {
+			display = "empty shelve";
 		} else {
 			selectedShelve = shelves.get(shelveNumber);
 			amountToPay = selectedShelve.getProductPrice();
