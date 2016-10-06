@@ -69,5 +69,6 @@ public class VendingMachine {
 	public void pressCancel() {
 		returnedCoins.addAll(insertedCoins);
 		insertedCoins.clear();
+		display = "";
 	}
 }
