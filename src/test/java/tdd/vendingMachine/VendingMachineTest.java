@@ -2,6 +2,7 @@ package tdd.vendingMachine;
 
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
@@ -125,5 +126,20 @@ public class VendingMachineTest {
 		vendingMachine.pressCancel();
 		// then
 		assertThat(vendingMachine.getReturnedCoins(), hasItems(Coin.TEN_GR, Coin.TWENTY_GR));
+	}
+	
+	@Test
+	public void should_return_inserted_money_only_once_after_pressing_cancel() {
+		// given
+		VendingMachine vendingMachine = new VendingMachine(Arrays.asList(new Shelve(1, new Product("Mineral water", new Money(200)))));
+		vendingMachine.selectShelve(0);
+		vendingMachine.insertCoin(Coin.TEN_GR);
+		vendingMachine.insertCoin(Coin.TWENTY_GR);
+		vendingMachine.pressCancel();
+		vendingMachine.getReturnedCoins().clear();
+		// when
+		vendingMachine.pressCancel();
+		// then
+		assertThat(vendingMachine.getReturnedCoins(), not(hasItems(Coin.TEN_GR, Coin.TWENTY_GR)));
 	}
 }
