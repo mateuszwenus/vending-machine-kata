@@ -73,5 +73,6 @@ public class VendingMachine {
 		returnedCoins.addAll(insertedCoins);
 		insertedCoins.clear();
 		display = "";
+		selectedShelve = null;
 	}
 }
