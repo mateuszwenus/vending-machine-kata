@@ -1,11 +1,13 @@
 package tdd.vendingMachine;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class VendingMachine {
 
 	public static final String INVALID_SHELVE_NUMBER_MSG = "invalid shelve number";
 	private final List<Shelve> shelves;
+	private final List<Coin> returnedCoins = new ArrayList<>();
 	private String display;
 	private Shelve selectedShelve;
 	private Money amountToPay;
@@ -35,11 +37,15 @@ public class VendingMachine {
 	}
 
 	public void insertCoin(Coin coin) {
-		amountToPay = amountToPay.minus(coin.toMoney());
-		display = amountToPay.toString();
+		if (selectedShelve != null) {
+			amountToPay = amountToPay.minus(coin.toMoney());
+			display = amountToPay.toString();
+		} else {
+			returnedCoins.add(coin);
+		}
 	}
 
 	public List<Coin> getReturnedCoins() {
-		return null;
+		return returnedCoins;
 	}
 }
