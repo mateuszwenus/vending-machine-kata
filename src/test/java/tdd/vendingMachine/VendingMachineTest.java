@@ -113,4 +113,17 @@ public class VendingMachineTest {
 		// then
 		assertThat(vendingMachine.getNumberOfProductsOnShelve(0), is(0));
 	}
+	
+	@Test
+	public void should_return_inserted_money_after_pressing_cancel() {
+		// given
+		VendingMachine vendingMachine = new VendingMachine(Arrays.asList(new Shelve(1, new Product("Mineral water", new Money(200)))));
+		vendingMachine.selectShelve(0);
+		vendingMachine.insertCoin(Coin.TEN_GR);
+		vendingMachine.insertCoin(Coin.TWENTY_GR);
+		// when
+		vendingMachine.pressCancel();
+		// then
+		assertThat(vendingMachine.getReturnedCoins(), hasItems(Coin.TEN_GR, Coin.TWENTY_GR));
+	}
 }
