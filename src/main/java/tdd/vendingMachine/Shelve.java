@@ -17,4 +17,8 @@ public class Shelve {
 	public Money getProductPrice() {
 		return product.getPrice();
 	}
+
+	public Product getProduct() {
+		return product;
+	}
 }

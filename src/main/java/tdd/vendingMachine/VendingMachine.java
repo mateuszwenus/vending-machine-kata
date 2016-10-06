@@ -11,6 +11,7 @@ public class VendingMachine {
 	private String display;
 	private Shelve selectedShelve;
 	private Money amountToPay;
+	private Product dispensedProduct;
 	
 	public VendingMachine(List<Shelve> shelves) {
 		if (shelves == null) {
@@ -39,6 +40,9 @@ public class VendingMachine {
 	public void insertCoin(Coin coin) {
 		if (selectedShelve != null) {
 			amountToPay = amountToPay.minus(coin.toMoney());
+			if (amountToPay.equals(new Money(0))) {
+				dispensedProduct = selectedShelve.getProduct();
+			}
 			display = amountToPay.toString();
 		} else {
 			returnedCoins.add(coin);
@@ -47,5 +51,11 @@ public class VendingMachine {
 
 	public List<Coin> getReturnedCoins() {
 		return returnedCoins;
+	}
+
+	public Product takeDispensedProduct() {
+		Product result = dispensedProduct;
+		dispensedProduct = null;
+		return result;
 	}
 }
