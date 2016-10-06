@@ -44,6 +44,7 @@ public class VendingMachine {
 			amountToPay = amountToPay.minus(coin.toMoney());
 			if (amountToPay.equals(new Money(0))) {
 				dispensedProduct = selectedShelve.takeProduct();
+				insertedCoins.clear();
 			}
 			display = amountToPay.toString();
 		} else {
