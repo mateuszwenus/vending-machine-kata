@@ -177,4 +177,17 @@ public class VendingMachineTest {
 		// then
 		assertThat(vendingMachine.getDisplay(), is(""));
 	}
+	
+	@Test
+	public void should_do_nothing_when_shelve_is_already_selected_and_user_selects_another_shelve() {
+		// given
+		Shelve mineralWaterShelve = new Shelve(1, new Product("Mineral water", new Money(200)));
+		Shelve chocolateShelve = new Shelve(1, new Product("Chocolate", new Money(300)));
+		VendingMachine vendingMachine = new VendingMachine(Arrays.asList(mineralWaterShelve, chocolateShelve));
+		vendingMachine.selectShelve(0);
+		// when
+		vendingMachine.selectShelve(1);
+		// then
+		assertThat(vendingMachine.getDisplay(), is("2.00"));
+	}
 }
