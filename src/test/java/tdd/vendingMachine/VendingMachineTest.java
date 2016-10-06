@@ -166,4 +166,15 @@ public class VendingMachineTest {
 		// then
 		assertThat(displayedText, is(""));
 	}
+	
+	@Test
+	public void should_return_to_initial_state_after_pressing_cancel() {
+		// given
+		VendingMachine vendingMachine = new VendingMachine(Arrays.asList(new Shelve(1, new Product("Mineral water", new Money(200)))));
+		vendingMachine.selectShelve(0);
+		// when
+		vendingMachine.pressCancel();
+		// then
+		assertThat(vendingMachine.getDisplay(), is(""));
+	}
 }
