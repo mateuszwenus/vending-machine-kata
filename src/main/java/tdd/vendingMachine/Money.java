@@ -11,6 +11,10 @@ public class Money {
 		this.amountGr = amountGr;
 	}
 	
+	public Money minus(Money other) {
+		return new Money(amountGr - other.amountGr);
+	}
+	
 	@Override
 	public String toString() {
 		return String.format("%d.%02d", amountGr / 100, amountGr % 100);
