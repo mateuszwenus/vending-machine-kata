@@ -155,5 +155,15 @@ public class VendingMachineTest {
 		vendingMachine.pressCancel();
 		// then
 		assertThat(vendingMachine.getReturnedCoins(), not(hasItem(any(Coin.class))));
-	}	
+	}
+	
+	@Test
+	public void display_should_initially_be_empty() {
+		// given
+		VendingMachine vendingMachine = new VendingMachine(Arrays.asList(new Shelve(1, new Product("Mineral water", new Money(200)))));
+		// when
+		String displayedText = vendingMachine.getDisplay();
+		// then
+		assertThat(displayedText, is(""));
+	}
 }
