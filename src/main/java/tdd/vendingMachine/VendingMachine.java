@@ -38,4 +38,8 @@ public class VendingMachine {
 		amountToPay = amountToPay.minus(coin.toMoney());
 		display = amountToPay.toString();
 	}
+
+	public List<Coin> getReturnedCoins() {
+		return null;
+	}
 }
