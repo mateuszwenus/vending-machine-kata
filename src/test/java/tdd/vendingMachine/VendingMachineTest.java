@@ -114,7 +114,7 @@ public class VendingMachineTest {
 		// when
 		vendingMachine.insertCoin(Coin.TWO_ZL);
 		// then
-		assertThat(vendingMachine.getNumberOfProductsOnShelve(0), is(0));
+		assertThat(vendingMachine.getShelve(0).getNumberOfProducts(), is(0));
 	}
 	
 	@Test

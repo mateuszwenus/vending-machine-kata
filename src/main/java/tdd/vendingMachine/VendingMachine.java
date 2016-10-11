@@ -9,12 +9,11 @@ public class VendingMachine {
 	public static final String INVALID_SHELVE_NUMBER_MSG = "invalid shelve number";
 	private final List<Shelve> shelves;
 	private final List<Coin> returnedCoins = new ArrayList<>();
-	private final List<Coin> insertedCoins = new ArrayList<>();
 	private String display = "";
-	private Shelve selectedShelve;
-	private Money amountToPay;
 	private Product dispensedProduct;
-	
+
+	private VendingMachineState state = new VendingMachineIdleState();
+
 	public VendingMachine(List<Shelve> shelves) {
 		if (shelves == null) {
 			throw new NullPointerException("shelves must not be null");
@@ -25,37 +24,28 @@ public class VendingMachine {
 		this.shelves = shelves;
 	}
 
-	public void selectShelve(int shelveNumber) {
-		if (selectedShelve != null) {
-			return;
-		}
-		if (shelveNumber < 0 || shelveNumber >= shelves.size()) {
-			display = INVALID_SHELVE_NUMBER_MSG;
-		} else if (shelves.get(shelveNumber).isEmpty()) {
-			display = EMPTY_SHELVE_MSG;
-		} else {
-			selectedShelve = shelves.get(shelveNumber);
-			amountToPay = selectedShelve.getProductPrice();
-			display = amountToPay.toString();
-		}
-	}
-
 	public String getDisplay() {
 		return display;
 	}
 
+	public void selectShelve(int shelveNumber) {
+		state.selectShelve(shelveNumber, this);
+	}
+
 	public void insertCoin(Coin coin) {
-		if (selectedShelve != null) {
-			insertedCoins.add(coin);
-			amountToPay = amountToPay.minus(coin.toMoney());
-			if (amountToPay.equals(new Money(0))) {
-				dispensedProduct = selectedShelve.takeProduct();
-				insertedCoins.clear();
-			}
-			display = amountToPay.toString();
-		} else {
-			returnedCoins.add(coin);
-		}
+		state.insertCoin(coin, this);
+	}
+
+	public void pressCancel() {
+		state.pressCancel(this);
+	}
+
+	void setState(VendingMachineState newState) {
+		this.state = newState;
+	}
+
+	void updateDisplay(String msgToDisplay) {
+		this.display = msgToDisplay;
 	}
 
 	public List<Coin> getReturnedCoins() {
@@ -68,14 +58,23 @@ public class VendingMachine {
 		return result;
 	}
 
-	public int getNumberOfProductsOnShelve(int shelveNumber) {
-		return shelves.get(shelveNumber).getNumberOfProducts();
+	public int getNumberOfShelves() {
+		return shelves.size();
 	}
 
-	public void pressCancel() {
-		returnedCoins.addAll(insertedCoins);
-		insertedCoins.clear();
-		display = "";
-		selectedShelve = null;
+	Shelve getShelve(int idx) {
+		return shelves.get(idx);
+	}
+
+	void addReturnedCoin(Coin coinToReturn) {
+		returnedCoins.add(coinToReturn);
+	}
+
+	void addReturnedCoins(List<Coin> coinsToReturn) {
+		returnedCoins.addAll(coinsToReturn);
+	}
+
+	void dispenseProduct(Product dispensedProduct) {
+		this.dispensedProduct = dispensedProduct;
 	}
 }
