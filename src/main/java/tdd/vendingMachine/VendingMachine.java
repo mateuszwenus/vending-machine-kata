@@ -10,6 +10,7 @@ public class VendingMachine {
 	public static final String INVALID_SHELVE_NUMBER_MSG = "invalid shelve number";
 	private final List<Shelve> shelves;
 	private final List<Coin> returnedCoins = new ArrayList<>();
+	private final List<Coin> coinsForChangeGiving;
 	private String display = "";
 	private Product dispensedProduct;
 
@@ -27,6 +28,7 @@ public class VendingMachine {
 			throw new IllegalArgumentException("shelves list must not be empty");
 		}
 		this.shelves = shelves;
+		this.coinsForChangeGiving = new ArrayList<>(startingCoins);
 	}
 
 	public String getDisplay() {
@@ -83,5 +85,9 @@ public class VendingMachine {
 
 	void dispenseProduct(Product dispensedProduct) {
 		this.dispensedProduct = dispensedProduct;
+	}
+
+	List<Coin> getCoinsForChangeGiving() {
+		return coinsForChangeGiving;
 	}
 }

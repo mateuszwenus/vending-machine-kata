@@ -22,8 +22,17 @@ public class VendingMachineSellingState implements VendingMachineState {
 	@Override
 	public void insertCoin(Coin coin, VendingMachine vendingMachine) {
 		insertedCoins.add(coin);
-		amountToPay = amountToPay.minus(coin.toMoney());
-		if (amountToPay.equals(new Money(0))) {
+		Money coinValue = coin.toMoney();
+		if (coinValue.lessThan(amountToPay)) {
+			amountToPay = amountToPay.minus(coinValue);
+		} else {
+			List<Coin> change = new ArrayList<>();
+			if (amountToPay.lessThan(coinValue)) {
+				Money amountToGive = coinValue.minus(amountToPay);
+				ChangeGiver changeGiver = new ChangeGiver();
+				change.addAll(changeGiver.giveChange(amountToGive, vendingMachine.getCoinsForChangeGiving()));
+			}
+			vendingMachine.addReturnedCoins(change);
 			vendingMachine.dispenseProduct(selectedShelve.takeProduct());
 			transitionToIdleState(vendingMachine);
 		}
@@ -39,7 +48,7 @@ public class VendingMachineSellingState implements VendingMachineState {
 		vendingMachine.addReturnedCoins(insertedCoins);
 		transitionToIdleState(vendingMachine);
 	}
-	
+
 	private void transitionToIdleState(VendingMachine vendingMachine) {
 		vendingMachine.setState(new VendingMachineIdleState());
 		vendingMachine.updateDisplay("");
