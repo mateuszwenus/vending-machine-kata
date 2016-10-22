@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ChangeGiver {
 
-	public void giveChange(int amountToGive, List<Coin> availableCoins) {
+	public List<Coin> giveChange(int amountToGive, List<Coin> availableCoins) {
 		throw new IllegalArgumentException();
 	}
 }
