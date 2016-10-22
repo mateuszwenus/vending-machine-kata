@@ -27,7 +27,7 @@ public class VendingMachine {
 		if (shelves.isEmpty()) {
 			throw new IllegalArgumentException("shelves list must not be empty");
 		}
-		this.shelves = shelves;
+		this.shelves = new ArrayList<>(shelves);
 		this.coinsForChangeGiving = new ArrayList<>(startingCoins);
 	}
 
