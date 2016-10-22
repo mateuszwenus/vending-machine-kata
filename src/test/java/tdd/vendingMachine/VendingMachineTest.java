@@ -10,6 +10,7 @@ import static org.junit.Assert.fail;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -213,5 +214,21 @@ public class VendingMachineTest {
 		vendingMachine.selectShelve(0);
 		// then
 		assertThat(vendingMachine.getDisplay(), is(VendingMachine.EMPTY_SHELVE_MSG));
+	}
+	
+	@Test
+	public void should_give_change_using_coins_supplied_at_start() {
+		// given
+		List<Shelve> shelves = Arrays.asList(new Shelve(0, new Product("Mineral water", new Money(200))));
+		List<Coin> startingCoins = Arrays.asList(Coin.ONE_ZL, Coin.ONE_ZL, Coin.FIFTY_GR, Coin.FIFTY_GR);
+		VendingMachine vendingMachine = new VendingMachine(shelves, startingCoins);
+		vendingMachine.selectShelve(0);
+		// when
+		vendingMachine.insertCoin(Coin.FIVE_ZL);
+		// then
+		assertThat(vendingMachine.takeDispensedProduct(), is(new Product("Mineral water", new Money(200))));
+		List<Coin> returnedCoins = vendingMachine.takeReturnedCoins();
+		assertThat(returnedCoins.size(), is(4));
+		assertThat(returnedCoins, hasItems(Coin.ONE_ZL, Coin.ONE_ZL, Coin.FIFTY_GR, Coin.FIFTY_GR));
 	}
 }
