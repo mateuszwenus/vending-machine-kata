@@ -1,6 +1,7 @@
 package tdd.vendingMachine;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class VendingMachine {
@@ -15,6 +16,10 @@ public class VendingMachine {
 	private VendingMachineState state = new VendingMachineIdleState();
 
 	public VendingMachine(List<Shelve> shelves) {
+		this(shelves, Collections.emptyList());
+	}
+
+	public VendingMachine(List<Shelve> shelves, List<Coin> startingCoins) {
 		if (shelves == null) {
 			throw new NullPointerException("shelves must not be null");
 		}
