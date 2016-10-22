@@ -91,7 +91,7 @@ public class VendingMachineTest {
 		// when
 		vendingMachine.insertCoin(Coin.ONE_ZL);
 		// then
-		assertThat(vendingMachine.getReturnedCoins(), hasItems(Coin.ONE_ZL));
+		assertThat(vendingMachine.takeReturnedCoins(), hasItems(Coin.ONE_ZL));
 	}
 	
 	@Test
@@ -127,7 +127,7 @@ public class VendingMachineTest {
 		// when
 		vendingMachine.pressCancel();
 		// then
-		assertThat(vendingMachine.getReturnedCoins(), hasItems(Coin.TEN_GR, Coin.TWENTY_GR));
+		assertThat(vendingMachine.takeReturnedCoins(), hasItems(Coin.TEN_GR, Coin.TWENTY_GR));
 	}
 	
 	@Test
@@ -138,11 +138,11 @@ public class VendingMachineTest {
 		vendingMachine.insertCoin(Coin.TEN_GR);
 		vendingMachine.insertCoin(Coin.TWENTY_GR);
 		vendingMachine.pressCancel();
-		vendingMachine.getReturnedCoins().clear();
+		vendingMachine.takeReturnedCoins();
 		// when
 		vendingMachine.pressCancel();
 		// then
-		assertThat(vendingMachine.getReturnedCoins(), not(hasItem(any(Coin.class))));
+		assertThat(vendingMachine.takeReturnedCoins(), not(hasItem(any(Coin.class))));
 	}
 	
 	@Test
@@ -154,7 +154,7 @@ public class VendingMachineTest {
 		// when
 		vendingMachine.pressCancel();
 		// then
-		assertThat(vendingMachine.getReturnedCoins(), not(hasItem(any(Coin.class))));
+		assertThat(vendingMachine.takeReturnedCoins(), not(hasItem(any(Coin.class))));
 	}
 	
 	@Test

@@ -48,8 +48,10 @@ public class VendingMachine {
 		this.display = msgToDisplay;
 	}
 
-	public List<Coin> getReturnedCoins() {
-		return returnedCoins;
+	public List<Coin> takeReturnedCoins() {
+		List<Coin> result = new ArrayList<>(returnedCoins);
+		returnedCoins.clear();
+		return result;
 	}
 
 	public Product takeDispensedProduct() {
