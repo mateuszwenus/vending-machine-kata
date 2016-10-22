@@ -1,7 +1,6 @@
 package tdd.vendingMachine;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class ChangeGiver {
@@ -15,6 +14,6 @@ public class ChangeGiver {
 				return Arrays.asList(coin);
 			}
 		}
-		return Collections.emptyList();
+		throw new GiveChangeNotPossibleException();
 	}
 }
