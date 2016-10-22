@@ -45,4 +45,8 @@ public class Money {
 	public String toString() {
 		return String.format("%d.%02d", amountGr / 100, amountGr % 100);
 	}
+
+	public boolean lessThan(Money other) {
+		return this.amountGr < other.amountGr;
+	}
 }
