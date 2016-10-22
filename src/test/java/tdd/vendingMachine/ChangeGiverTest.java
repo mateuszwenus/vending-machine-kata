@@ -1,6 +1,7 @@
 package tdd.vendingMachine;
 
 import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
@@ -50,5 +51,17 @@ public class ChangeGiverTest {
 		} catch (GiveChangeNotPossibleException expected) {
 			// then
 		}
+	}
+
+	@Test
+	public void should_give_change_using_multiple_coins() {
+		// given
+		ChangeGiver changeGiver = new ChangeGiver();
+		// when
+		List<Coin> change = changeGiver.giveChange(new Money(200), Arrays.asList(Coin.ONE_ZL, Coin.FIVE_ZL, Coin.FIFTY_GR, Coin.ONE_ZL));
+		// then
+		assertThat(change, notNullValue());
+		assertThat(change.size(), is(2));
+		assertThat(change, hasItems(Coin.ONE_ZL, Coin.ONE_ZL));
 	}
 }
