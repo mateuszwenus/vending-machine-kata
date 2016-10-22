@@ -38,4 +38,17 @@ public class ChangeGiverTest {
 		assertThat(change.size(), is(1));
 		assertThat(change, hasItem(Coin.TWO_ZL));
 	}
+
+	@Test
+	public void should_throw_exception_if_not_possible_to_give_change() {
+		// given
+		ChangeGiver changeGiver = new ChangeGiver();
+		try {
+			// when
+			changeGiver.giveChange(new Money(200), Arrays.asList(Coin.ONE_ZL));
+			fail();
+		} catch (GiveChangeNotPossibleException expected) {
+			// then
+		}
+	}
 }
