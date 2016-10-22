@@ -219,7 +219,7 @@ public class VendingMachineTest {
 	@Test
 	public void should_give_change_using_coins_supplied_at_start() {
 		// given
-		List<Shelve> shelves = Arrays.asList(new Shelve(0, new Product("Mineral water", new Money(200))));
+		List<Shelve> shelves = Arrays.asList(new Shelve(1, new Product("Mineral water", new Money(200))));
 		List<Coin> startingCoins = Arrays.asList(Coin.ONE_ZL, Coin.ONE_ZL, Coin.FIFTY_GR, Coin.FIFTY_GR);
 		VendingMachine vendingMachine = new VendingMachine(shelves, startingCoins);
 		vendingMachine.selectShelve(0);
