@@ -20,7 +20,7 @@ public class ChangeGiverTest {
 		ChangeGiver changeGiver = new ChangeGiver();
 		try {
 			// when
-			changeGiver.giveChange(0, Collections.emptyList());
+			changeGiver.giveChange(new Money(0), Collections.emptyList());
 			fail();
 		} catch (IllegalArgumentException expected) {
 			// then
@@ -32,7 +32,7 @@ public class ChangeGiverTest {
 		// given
 		ChangeGiver changeGiver = new ChangeGiver();
 		// when
-		List<Coin> change = changeGiver.giveChange(200, Arrays.asList(Coin.ONE_ZL, Coin.TWO_ZL));
+		List<Coin> change = changeGiver.giveChange(new Money(200), Arrays.asList(Coin.ONE_ZL, Coin.TWO_ZL));
 		// then
 		assertThat(change, notNullValue());
 		assertThat(change.size(), is(1));

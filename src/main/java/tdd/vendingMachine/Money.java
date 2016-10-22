@@ -11,6 +11,10 @@ public class Money {
 		this.amountGr = amountGr;
 	}
 	
+	public int getAmountGr() {
+		return amountGr;
+	}
+	
 	public Money minus(Money other) {
 		return new Money(amountGr - other.amountGr);
 	}
