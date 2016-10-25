@@ -260,4 +260,18 @@ public class VendingMachineTest {
 		// then
 		assertThat(vendingMachine.getDisplay(), is("unable to give change"));
 	}
+	
+	@Test
+	public void should_return_inserted_money_when_unable_to_give_change() {
+		// given
+		List<Shelve> shelves = Arrays.asList(new Shelve(1, new Product("Mineral water", new Money(100))));
+		VendingMachine vendingMachine = new VendingMachine(shelves);
+		vendingMachine.selectShelve(0);
+		// when
+		vendingMachine.insertCoin(Coin.TWO_ZL);
+		// then
+		List<Coin> returnedCoins = vendingMachine.takeReturnedCoins();
+		assertThat(returnedCoins.size(), is(1));
+		assertThat(returnedCoins, hasItem(Coin.TWO_ZL));
+	}
 }
