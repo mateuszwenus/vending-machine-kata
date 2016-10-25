@@ -26,16 +26,22 @@ public class VendingMachineSellingState implements VendingMachineState {
 		if (coinValue.lessThan(amountToPay)) {
 			amountToPay = amountToPay.minus(coinValue);
 		} else {
-			List<Coin> change = new ArrayList<>();
-			if (amountToPay.lessThan(coinValue)) {
-				Money amountToGive = coinValue.minus(amountToPay);
-				ChangeGiver changeGiver = new ChangeGiver();
-				change.addAll(changeGiver.giveChange(amountToGive, vendingMachine.getCoinsForChangeGiving()));
+			try {
+				List<Coin> change = new ArrayList<>();
+				if (amountToPay.lessThan(coinValue)) {
+					Money amountToGive = coinValue.minus(amountToPay);
+					ChangeGiver changeGiver = new ChangeGiver();
+					change.addAll(changeGiver.giveChange(amountToGive, vendingMachine.getCoinsForChangeGiving()));
+				}
+				vendingMachine.addCoinsForChangeGiving(insertedCoins);
+				vendingMachine.addReturnedCoins(change);
+				vendingMachine.dispenseProduct(selectedShelve.takeProduct());
+				transitionToIdleState(vendingMachine);
+			} catch (GiveChangeNotPossibleException e) {
+				transitionToIdleState(vendingMachine);
+				vendingMachine.updateDisplay("unable to give change");
+				return;
 			}
-			vendingMachine.addCoinsForChangeGiving(insertedCoins);
-			vendingMachine.addReturnedCoins(change);
-			vendingMachine.dispenseProduct(selectedShelve.takeProduct());
-			transitionToIdleState(vendingMachine);
 		}
 		updateDisplay(vendingMachine);
 	}
