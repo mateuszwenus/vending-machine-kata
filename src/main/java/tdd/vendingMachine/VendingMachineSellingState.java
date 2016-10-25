@@ -32,6 +32,7 @@ public class VendingMachineSellingState implements VendingMachineState {
 				ChangeGiver changeGiver = new ChangeGiver();
 				change.addAll(changeGiver.giveChange(amountToGive, vendingMachine.getCoinsForChangeGiving()));
 			}
+			vendingMachine.addCoinsForChangeGiving(insertedCoins);
 			vendingMachine.addReturnedCoins(change);
 			vendingMachine.dispenseProduct(selectedShelve.takeProduct());
 			transitionToIdleState(vendingMachine);

@@ -82,6 +82,10 @@ public class VendingMachine {
 	void addReturnedCoins(List<Coin> coinsToReturn) {
 		returnedCoins.addAll(coinsToReturn);
 	}
+	
+	void addCoinsForChangeGiving(List<Coin> coinsToAdd) {
+		coinsForChangeGiving.addAll(coinsToAdd);
+	}
 
 	void dispenseProduct(Product dispensedProduct) {
 		this.dispensedProduct = dispensedProduct;
