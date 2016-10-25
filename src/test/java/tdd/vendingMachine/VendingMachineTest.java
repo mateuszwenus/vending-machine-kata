@@ -248,4 +248,16 @@ public class VendingMachineTest {
 		assertThat(returnedCoins.size(), is(1));
 		assertThat(returnedCoins, hasItem(Coin.ONE_ZL));
 	}
+	
+	@Test
+	public void should_display_warning_when_unable_to_give_change() {
+		// given
+		List<Shelve> shelves = Arrays.asList(new Shelve(1, new Product("Mineral water", new Money(100))));
+		VendingMachine vendingMachine = new VendingMachine(shelves);
+		vendingMachine.selectShelve(0);
+		// when
+		vendingMachine.insertCoin(Coin.TWO_ZL);
+		// then
+		assertThat(vendingMachine.getDisplay(), is("unable to give change"));
+	}
 }
