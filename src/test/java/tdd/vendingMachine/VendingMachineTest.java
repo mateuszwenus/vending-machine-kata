@@ -231,4 +231,21 @@ public class VendingMachineTest {
 		assertThat(returnedCoins.size(), is(4));
 		assertThat(returnedCoins, hasItems(Coin.ONE_ZL, Coin.ONE_ZL, Coin.FIFTY_GR, Coin.FIFTY_GR));
 	}
+	
+	@Test
+	public void should_give_change_using_coins_from_previous_buyers() {
+		// given
+		List<Shelve> shelves = Arrays.asList(new Shelve(2, new Product("Mineral water", new Money(100))));
+		VendingMachine vendingMachine = new VendingMachine(shelves);
+		vendingMachine.selectShelve(0);
+		vendingMachine.insertCoin(Coin.ONE_ZL);
+		vendingMachine.selectShelve(0);
+		// when
+		vendingMachine.insertCoin(Coin.TWO_ZL);
+		// then
+		assertThat(vendingMachine.takeDispensedProduct(), is(new Product("Mineral water", new Money(100))));
+		List<Coin> returnedCoins = vendingMachine.takeReturnedCoins();
+		assertThat(returnedCoins.size(), is(1));
+		assertThat(returnedCoins, hasItem(Coin.ONE_ZL));
+	}
 }
