@@ -40,6 +40,7 @@ public class VendingMachineSellingState implements VendingMachineState {
 			} catch (GiveChangeNotPossibleException e) {
 				transitionToIdleState(vendingMachine);
 				vendingMachine.updateDisplay("unable to give change");
+				vendingMachine.addReturnedCoins(insertedCoins);
 				return;
 			}
 		}
