@@ -23,12 +23,12 @@ public class VendingMachineSellingState implements VendingMachineState {
 	public void insertCoin(Coin coin, VendingMachine vendingMachine) {
 		insertedCoins.add(coin);
 		Money coinValue = coin.toMoney();
-		if (coinValue.lessThan(amountToPay)) {
+		if (coinValue.isLessThan(amountToPay)) {
 			amountToPay = amountToPay.minus(coinValue);
 		} else {
 			try {
 				List<Coin> change = new ArrayList<>();
-				if (amountToPay.lessThan(coinValue)) {
+				if (amountToPay.isLessThan(coinValue)) {
 					Money amountToGive = coinValue.minus(amountToPay);
 					ChangeGiver changeGiver = new ChangeGiver();
 					change.addAll(changeGiver.giveChange(amountToGive, vendingMachine.getCoinsForChangeGiving()));
