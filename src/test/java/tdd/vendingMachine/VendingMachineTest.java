@@ -274,4 +274,19 @@ public class VendingMachineTest {
 		assertThat(returnedCoins.size(), is(1));
 		assertThat(returnedCoins, hasItem(Coin.TWO_ZL));
 	}
+	
+	@Test
+	public void giving_change_should_use_up_available_coins() {
+		// given
+		List<Shelve> shelves = Arrays.asList(new Shelve(2, new Product("Mineral water", new Money(100))));
+		List<Coin> startingCoins = Arrays.asList(Coin.ONE_ZL);
+		VendingMachine vendingMachine = new VendingMachine(shelves, startingCoins);
+		vendingMachine.selectShelve(0);
+		vendingMachine.insertCoin(Coin.TWO_ZL);
+		vendingMachine.selectShelve(0);
+		// when
+		vendingMachine.insertCoin(Coin.TWO_ZL);
+		// then
+		assertThat(vendingMachine.getDisplay(), is("unable to give change"));
+	}
 }
