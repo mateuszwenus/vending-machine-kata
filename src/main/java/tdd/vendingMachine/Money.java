@@ -1,24 +1,30 @@
 package tdd.vendingMachine;
 
-public class Money {
+public class Money implements Comparable<Money> {
+
+	public static final Money ZERO = new Money(0);
 
 	private final int amountGr;
-	
+
 	public Money(int amountGr) {
 		if (amountGr < 0) {
 			throw new IllegalArgumentException("amountGr must not be < 0");
 		}
 		this.amountGr = amountGr;
 	}
-	
+
 	public int getAmountGr() {
 		return amountGr;
 	}
-	
-	public Money minus(Money other) {
+
+	public Money add(Money other) {
+		return new Money(amountGr + other.amountGr);
+	}
+
+	public Money subtract(Money other) {
 		return new Money(amountGr - other.amountGr);
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -46,7 +52,12 @@ public class Money {
 		return String.format("%d.%02d", amountGr / 100, amountGr % 100);
 	}
 
-	public boolean isLessThan(Money other) {
-		return this.amountGr < other.amountGr;
+	public static Money add(Money m1, Money m2) {
+		return m1.add(m2);
+	}
+
+	@Override
+	public int compareTo(Money o) {
+		return this.amountGr - o.amountGr;
 	}
 }

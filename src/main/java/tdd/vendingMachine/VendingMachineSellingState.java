@@ -6,7 +6,8 @@ import java.util.List;
 public class VendingMachineSellingState implements VendingMachineState {
 
 	private final Shelve selectedShelve;
-	private Money amountToPay;
+	private final Money amountToPay;
+	private Money insertedAmount = Money.ZERO;
 	private final List<Coin> insertedCoins = new ArrayList<>();
 
 	public VendingMachineSellingState(Shelve selectedShelve, VendingMachine vendingMachine) {
@@ -22,34 +23,56 @@ public class VendingMachineSellingState implements VendingMachineState {
 	@Override
 	public void insertCoin(Coin coin, VendingMachine vendingMachine) {
 		insertedCoins.add(coin);
-		Money coinValue = coin.toMoney();
-		if (coinValue.isLessThan(amountToPay)) {
-			amountToPay = amountToPay.minus(coinValue);
+		insertedAmount = insertedAmount.add(coin.toMoney());
+		if (coveredProductPrice()) {
+			dispenseProductAndTryToGiveChangeIfNecessary(vendingMachine);
 		} else {
-			try {
-				List<Coin> change = new ArrayList<>();
-				if (amountToPay.isLessThan(coinValue)) {
-					Money amountToGive = coinValue.minus(amountToPay);
-					ChangeGiver changeGiver = new ChangeGiver();
-					change.addAll(changeGiver.giveChange(amountToGive, vendingMachine.getCoinsForChangeGiving()));
-				}
-				vendingMachine.addCoinsForChangeGiving(insertedCoins);
-				vendingMachine.addReturnedCoins(change);
-				vendingMachine.removeCoinsForChangeGiving(change);
-				vendingMachine.dispenseProduct(selectedShelve.takeProduct());
-				transitionToIdleState(vendingMachine);
-			} catch (GiveChangeNotPossibleException e) {
-				transitionToIdleState(vendingMachine);
-				vendingMachine.updateDisplay(VendingMachine.UNABLE_TO_GIVE_CHANGE_MSG);
-				vendingMachine.addReturnedCoins(insertedCoins);
-				return;
-			}
+			updateDisplay(vendingMachine);
 		}
-		updateDisplay(vendingMachine);
+	}
+
+	private boolean coveredProductPrice() {
+		return insertedAmount.compareTo(amountToPay) >= 0;
+	}
+
+	private void dispenseProductAndTryToGiveChangeIfNecessary(VendingMachine vendingMachine) {
+		try {
+			dispenseProductAndGiveChangeIfNecessary(vendingMachine);
+		} catch (GiveChangeNotPossibleException e) {
+			handleChangeNotPossible(vendingMachine);
+		}
+	}
+
+	private void dispenseProductAndGiveChangeIfNecessary(VendingMachine vendingMachine) {
+		Money changeAmount = calculateChange();
+		if (isGiveChangeNecessary(changeAmount)) {
+			ChangeGiver changeGiver = new ChangeGiver();
+			List<Coin> changeCoins = changeGiver.giveChange(changeAmount, vendingMachine.getCoinsForChangeGiving());
+			vendingMachine.addReturnedCoins(changeCoins);
+			vendingMachine.removeCoinsForChangeGiving(changeCoins);
+		}
+		vendingMachine.addCoinsForChangeGiving(insertedCoins);
+		vendingMachine.dispenseProduct(selectedShelve.takeProduct());
+		transitionToIdleState(vendingMachine);
+	}
+
+	private Money calculateChange() {
+		return insertedAmount.subtract(amountToPay);
+	}
+
+	private boolean isGiveChangeNecessary(Money changeAmount) {
+		return changeAmount.compareTo(Money.ZERO) > 0;
+	}
+
+	private void handleChangeNotPossible(VendingMachine vendingMachine) {
+		transitionToIdleState(vendingMachine);
+		vendingMachine.updateDisplay(VendingMachine.UNABLE_TO_GIVE_CHANGE_MSG);
+		vendingMachine.addReturnedCoins(insertedCoins);
 	}
 
 	private void updateDisplay(VendingMachine vendingMachine) {
-		vendingMachine.updateDisplay(amountToPay.toString());
+		Money amountToDisplay = amountToPay.subtract(insertedAmount);
+		vendingMachine.updateDisplay(amountToDisplay.toString());
 	}
 
 	@Override

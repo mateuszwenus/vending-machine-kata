@@ -13,8 +13,8 @@ public class ChangeGiver {
 		for (Coin coin : availableCoins) {
 			if (coin.toMoney().equals(amountToGive)) {
 				return new ArrayList<>(Arrays.asList(coin));
-			} else if (coin.toMoney().isLessThan(amountToGive)) {
-				Money newAmountToGive = amountToGive.minus(coin.toMoney());
+			} else if (coin.toMoney().compareTo(amountToGive) < 0) {
+				Money newAmountToGive = amountToGive.subtract(coin.toMoney());
 				List<Coin> newAvailableCoins = new ArrayList<>(availableCoins);
 				newAvailableCoins.remove(coin);
 				try {
