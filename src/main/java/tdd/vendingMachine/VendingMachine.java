@@ -94,4 +94,8 @@ public class VendingMachine {
 	List<Coin> getCoinsForChangeGiving() {
 		return coinsForChangeGiving;
 	}
+
+	void removeCoinsForChangeGiving(List<Coin> change) {
+		change.forEach(coin -> coinsForChangeGiving.remove(coin));
+	}
 }
