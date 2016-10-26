@@ -8,6 +8,7 @@ public class VendingMachine {
 
 	public static final String EMPTY_SHELVE_MSG = "empty shelve";
 	public static final String INVALID_SHELVE_NUMBER_MSG = "invalid shelve number";
+	public static final String UNABLE_TO_GIVE_CHANGE_MSG = "unable to give change";
 	private final List<Shelve> shelves;
 	private final List<Coin> returnedCoins = new ArrayList<>();
 	private final List<Coin> coinsForChangeGiving;

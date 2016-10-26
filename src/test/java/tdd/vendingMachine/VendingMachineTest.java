@@ -258,7 +258,7 @@ public class VendingMachineTest {
 		// when
 		vendingMachine.insertCoin(Coin.TWO_ZL);
 		// then
-		assertThat(vendingMachine.getDisplay(), is("unable to give change"));
+		assertThat(vendingMachine.getDisplay(), is(VendingMachine.UNABLE_TO_GIVE_CHANGE_MSG));
 	}
 	
 	@Test
@@ -287,6 +287,6 @@ public class VendingMachineTest {
 		// when
 		vendingMachine.insertCoin(Coin.TWO_ZL);
 		// then
-		assertThat(vendingMachine.getDisplay(), is("unable to give change"));
+		assertThat(vendingMachine.getDisplay(), is(VendingMachine.UNABLE_TO_GIVE_CHANGE_MSG));
 	}
 }
