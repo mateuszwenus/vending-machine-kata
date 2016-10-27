@@ -1,10 +1,9 @@
 package tdd.vendingMachine;
 
-import static org.hamcrest.CoreMatchers.any;
-import static org.hamcrest.CoreMatchers.hasItem;
-import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.emptyCollectionOf;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
@@ -92,7 +91,7 @@ public class VendingMachineTest {
 		// when
 		vendingMachine.insertCoin(Coin.ONE_ZL);
 		// then
-		assertThat(vendingMachine.takeReturnedCoins(), hasItems(Coin.ONE_ZL));
+		assertThat(vendingMachine.takeReturnedCoins(), contains(Coin.ONE_ZL));
 	}
 	
 	@Test
@@ -128,7 +127,7 @@ public class VendingMachineTest {
 		// when
 		vendingMachine.pressCancel();
 		// then
-		assertThat(vendingMachine.takeReturnedCoins(), hasItems(Coin.TEN_GR, Coin.TWENTY_GR));
+		assertThat(vendingMachine.takeReturnedCoins(), containsInAnyOrder(Coin.TEN_GR, Coin.TWENTY_GR));
 	}
 	
 	@Test
@@ -143,7 +142,7 @@ public class VendingMachineTest {
 		// when
 		vendingMachine.pressCancel();
 		// then
-		assertThat(vendingMachine.takeReturnedCoins(), not(hasItem(any(Coin.class))));
+		assertThat(vendingMachine.takeReturnedCoins(), is(emptyCollectionOf(Coin.class)));
 	}
 	
 	@Test
@@ -155,7 +154,7 @@ public class VendingMachineTest {
 		// when
 		vendingMachine.pressCancel();
 		// then
-		assertThat(vendingMachine.takeReturnedCoins(), not(hasItem(any(Coin.class))));
+		assertThat(vendingMachine.takeReturnedCoins(), is(emptyCollectionOf(Coin.class)));
 	}
 	
 	@Test
@@ -228,8 +227,7 @@ public class VendingMachineTest {
 		// then
 		assertThat(vendingMachine.takeDispensedProduct(), is(new Product("Mineral water", new Money(200))));
 		List<Coin> returnedCoins = vendingMachine.takeReturnedCoins();
-		assertThat(returnedCoins.size(), is(4));
-		assertThat(returnedCoins, hasItems(Coin.ONE_ZL, Coin.ONE_ZL, Coin.FIFTY_GR, Coin.FIFTY_GR));
+		assertThat(returnedCoins, containsInAnyOrder(Coin.ONE_ZL, Coin.ONE_ZL, Coin.FIFTY_GR, Coin.FIFTY_GR));
 	}
 	
 	@Test
@@ -245,8 +243,7 @@ public class VendingMachineTest {
 		// then
 		assertThat(vendingMachine.takeDispensedProduct(), is(new Product("Mineral water", new Money(100))));
 		List<Coin> returnedCoins = vendingMachine.takeReturnedCoins();
-		assertThat(returnedCoins.size(), is(1));
-		assertThat(returnedCoins, hasItem(Coin.ONE_ZL));
+		assertThat(returnedCoins, contains(Coin.ONE_ZL));
 	}
 	
 	@Test
@@ -271,8 +268,7 @@ public class VendingMachineTest {
 		vendingMachine.insertCoin(Coin.TWO_ZL);
 		// then
 		List<Coin> returnedCoins = vendingMachine.takeReturnedCoins();
-		assertThat(returnedCoins.size(), is(1));
-		assertThat(returnedCoins, hasItem(Coin.TWO_ZL));
+		assertThat(returnedCoins, contains(Coin.TWO_ZL));
 	}
 	
 	@Test

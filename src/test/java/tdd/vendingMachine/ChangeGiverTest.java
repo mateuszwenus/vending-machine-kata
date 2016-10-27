@@ -1,9 +1,7 @@
 package tdd.vendingMachine;
 
-import static org.hamcrest.CoreMatchers.hasItem;
-import static org.hamcrest.CoreMatchers.hasItems;
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.Matchers.contains;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
@@ -36,8 +34,7 @@ public class ChangeGiverTest {
 		List<Coin> change = changeGiver.giveChange(new Money(200), Arrays.asList(Coin.ONE_ZL, Coin.TWO_ZL));
 		// then
 		assertThat(change, notNullValue());
-		assertThat(change.size(), is(1));
-		assertThat(change, hasItem(Coin.TWO_ZL));
+		assertThat(change, contains(Coin.TWO_ZL));
 	}
 
 	@Test
@@ -61,7 +58,6 @@ public class ChangeGiverTest {
 		List<Coin> change = changeGiver.giveChange(new Money(200), Arrays.asList(Coin.ONE_ZL, Coin.FIVE_ZL, Coin.FIFTY_GR, Coin.ONE_ZL));
 		// then
 		assertThat(change, notNullValue());
-		assertThat(change.size(), is(2));
-		assertThat(change, hasItems(Coin.ONE_ZL, Coin.ONE_ZL));
+		assertThat(change, contains(Coin.ONE_ZL, Coin.ONE_ZL));
 	}
 }
